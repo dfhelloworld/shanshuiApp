@@ -1,5 +1,6 @@
 <template>
   <yd-layout> 
+    <div class="nav_mark"></div>
     <yd-navbar :title="language.common.shoppingCart" fixed>
  		<div @click="goBack" slot="left">
 			<span class="back" ></span>
@@ -14,17 +15,19 @@
                   <img  :src="data.pic" alt="">
               </div>
               <div class="col-6">
-                  <span>{{data.title+" "}}X{{" "+data.quantity}}</span> 
+                  <span>{{data.title+" "}}</span>
+                  <div class="spinner">
+                  <yd-button style="background-color:lightgrey;width:5%" @click.native="changeMoney(data,-1)">-</yd-button>
+                  <input type="text" disabled value="" v-model="data.quantity">
+                  <yd-button style="background-color:lightgrey;width:5%" @click.native="changeMoney(data,1)">+</yd-button>
+                  </div>
                   <ul class="s-price">
-                    <li class="col-5">RMB {{data.price}}</li> 
-                     <yd-button type="danger" style="margin-top:15%" @click.native="openConfirm(data)">{{language.common.remove}}</yd-button>
-                      <!-- <li class="col-6="><yd-spinner max="99" unit="1" v-model="spinner1"></yd-spinner></li> -->
+                    <li class="col-5">RMB {{data.price*data.quantity}}</li> 
+                     <yd-button type="danger" style="margin-top:15%" @click.native="openConfirm(data)">{{language.common.remove}}</yd-button> 
                   </ul> 
-                 
               </div>
           </li>
-        </ul>
-        <!-- <p class="no_data" v-show="noData">{{language.common.noMoreData}}</p> -->
+        </ul> 
       </scroller>
     </section>
 
@@ -38,6 +41,16 @@
 </template>
 
 <style> 
+.spinner input{
+    width:20%;
+    height: 2.5em;
+    text-align: center;
+}
+.spinner a{
+    width: 20px;
+    font-size: 1.5em; 
+}
+
 </style>
 <script>
     import { mapGetters } from 'vuex'
@@ -53,7 +66,6 @@
                 itemQuantity:1,
                 totalPrice:0,
                 cart:[],
-                spinner1
             }
         },
         created:function () {
@@ -70,27 +82,27 @@
             }
         },
         methods: {
-             apply: function () {
-                localStorage.Quantity =0;
-                localStorage.totalPrice= 0;
-                localStorage.cart = [];
-                let _this =this
-                let params = [];
-                for (var index = 0; index < this.cart.length; index++) {
-                     params[i] = {'hotelid':localStorage.HOTELID,'shoppingid':this.cart[i].id,'token':localStorage.TOKEN,'count':this.cart[i].quantity};
-                }
-                this.$store.dispatch('getShoppingOrder', params).then((res) => {
-                	if (res.data.code == 0){
-                    	this.$dialog.toast({
-                    	    mes: _this.language.msg.buy_info,
-							timeout: 1000
-                    	});
-                        localStorage.c
-                    } else {
-                    	this.$dialog.toast({mes: res.data.msg, timeout: 1000});
-					}
-                }) 
-			},
+            //  apply: function () {
+            //     localStorage.Quantity =0;
+            //     localStorage.totalPrice= 0;
+            //     localStorage.cart = [];
+            //     let _this =this
+            //     let params = [];
+            //     for (var index = 0; index < this.cart.length; index++) {
+            //          params[i] = {'hotelid':localStorage.HOTELID,'shoppingid':this.cart[i].id,'token':localStorage.TOKEN,'count':this.cart[i].quantity};
+            //     }
+            //     this.$store.dispatch('getShoppingOrder', params).then((res) => {
+            //     	if (res.data.code == 0){
+            //         	this.$dialog.toast({
+            //         	    mes: _this.language.msg.buy_info,
+			// 				timeout: 1000
+            //         	});
+            //             localStorage.c
+            //         } else {
+            //         	this.$dialog.toast({mes: res.data.msg, timeout: 1000});
+			// 		}
+            //     }) 
+			// },
 
 
             checkOut:function(){ 
@@ -101,34 +113,47 @@
             goBack:function(){
                this.$router.go(-1);
             },
+            changeMoney:function(item,operation){ 
+                if(operation<0){ 
+                    if(item.quantity==1){
+                        return;
+                    }
+                    item.quantity--;
+                    this.totalPrice -= parseInt(item.price);
+                    this.selectedNum--;
+         
+                }
+                else{ 
+                    item.quantity++; 
+                     this.totalPrice += parseInt(item.price);
+                    this.selectedNum++;
+                }
+            },
+            openConfirm:function(data) {    
+                this.$dialog.confirm({
+                    title: '提示',
+                    mes: '确定移除该物品吗？',
+                    opts: () => {  
+                        var index =this.cart.indexOf(data);   
+                        if(index>-1){  
+                            this.cart.splice(index,1);
+                            this.selectedNum -= data.quantity;
+                            this.totalPrice -=(data.price * data.quantity);
+                        } 
+                    }
+                });
+            },
         },
         mounted:function () {
 
         },
         components: {
         },
-    computed: {
-    ...mapState({
+        computed: {
+            ...mapState({
             language: state => state.language.language
         }),
-        openConfirm:function(data) { 
-                let _this = this;
-                this.$dialog.confirm({
-                    title: '提示',
-                    mes: '确定移除该物品吗？',
-                    opts: () => { 
-                        var index =_this.cart.indexOf(data);
-                        if(index>-1){
-                            _this.cart.splice(index,1);
-                            _this.selectedNum -= data.quantity;
-                        } 
-                        localStorage.setItem('cart',JSON.stringify(_this.cart));
-                        localStorage.setItem('Quantity',parseInt(_this.selectedNum));
-                        localStorage.setItem('totalPrice',parseInt(this.totalPrice)); 
 
-                    }
-                });
-            },
     },
 
     };

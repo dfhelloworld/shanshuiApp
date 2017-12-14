@@ -82,7 +82,6 @@ export default {
   },
   methods:{
     change : function(){
-      alert(1);
     },
 
     addToCart:function(data){  

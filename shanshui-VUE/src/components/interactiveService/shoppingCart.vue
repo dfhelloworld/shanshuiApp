@@ -17,7 +17,7 @@
                   <span>{{data.title+" "}}X{{" "+data.quantity}}</span> 
                   <ul class="s-price">
                     <li class="col-5">RMB {{data.price}}</li> 
-                     <yd-button type="danger" style="margin-top:15%" @click="remove(data)">{{language.common.remove}}</yd-button>
+                     <yd-button type="danger" style="margin-top:15%" @click.native="openConfirm(data)">{{language.common.remove}}</yd-button>
                       <!-- <li class="col-6="><yd-spinner max="99" unit="1" v-model="spinner1"></yd-spinner></li> -->
                   </ul> 
                  
@@ -32,7 +32,7 @@
     <!-- 购物车foot -->
         <div class="action-bar" > 
             <div class="action-btn buy-btn" @click="apply()">{{language.common.submit}}({{ selectedNum }})</div> 
-            <div class="total">{{language.common.total}}：<span>¥<b>{{ totalPrice }}</b></span></div>
+            <div class="total">{{language.common.total}}： <b>{{ totalPrice | formatMoney }}</b></div>
         </div>
   </yd-layout> 
 </template>
@@ -64,6 +64,11 @@
                 this.totalPrice = parseInt(localStorage.totalPrice);
             }
         },
+        filters:{
+            formatMoney:function(value){
+                return "￥ "+ value.toFixed(2);
+            }
+        },
         methods: {
              apply: function () {
                 localStorage.Quantity =0;
@@ -86,86 +91,44 @@
 					}
                 }) 
 			},
-            // getData:function () {
-            //     let _this = this
-            //     let params = {
-            //         hotelid: localStorage.HOTELID,
-            //         lang: localStorage.LANGUAGE,
-            //         limit:6,
-            //         page:_this.nextPage
-            //     }
-            //     this.$store.dispatch('getShoppingList', params).then(function (res) {
-            //         var arrList = res.data.data.list
-            //         _this.dataList = _this.dataList.concat(arrList)
-            //         _this.nextPage = res.data.data.nextPage
-            //     })
-            // },
-            // infinite:function (done) {
-            //     let _this = this
-            //     done(true);
-            //     if (this.nextPage != '-1') {
-            //         _this.getData()
-            //     } else {
-            //         done(false);
-            //         _this.noData = true;
-            //     }
-            // },
-            goDetail:function (id) {
-                let data = {};
-                for(var key in this.dataList){
-                    if (this.dataList[key].id == id){
-                        data = this.dataList[key];
-                        break;
-                    }
-                }
-                this.saveCart();
-                this.$router.push({path:'/buy',query:{info:data,quantity:this.selectedNum}});
-            },
-            addToCart:function(data){ 
-                let _this = this; 
-                this.selectedNum ++;
-                this.totalPrice += parseInt(data.price);
-                var alreadyIndex = this.cart.findIndex(function(item,index){ 
-                    return item.id === data.id
-                    });  
-                if(alreadyIndex==-1){  
-                    var cartIndex = this.cart.length;
-                    this.cart.push(data);
-                    this.$set(this.cart[cartIndex],'quantity',1); 
-                    this.saveCart();
-                    return;
-                }else{   
-                    this.cart[alreadyIndex].quantity +=1;
-                    this.saveCart();
-                    return;
-                }
+
+
+            checkOut:function(){ 
+                // this.$router.push({path:'/shoppingCart'});
 
             },
-            checkOut:function(){ 
-                this.$router.push({path:'/shoppingCart'});
-            },
-            saveCart:function(){
-                localStorage.setItem('cart',JSON.stringify(this.cart));
-                localStorage.setItem('Quantity',parseInt(this.selectedNum));
-                localStorage.setItem('totalPrice',parseInt(this.totalPrice)); 
-            },
+
             goBack:function(){
                this.$router.go(-1);
             },
-            remove:function(data){
-                
-            }
         },
         mounted:function () {
-            //一级页面falg
-            isHomePage(0)
+
         },
         components: {
         },
     computed: {
     ...mapState({
             language: state => state.language.language
-        })
+        }),
+        openConfirm:function(data) { 
+                let _this = this;
+                this.$dialog.confirm({
+                    title: '提示',
+                    mes: '确定移除该物品吗？',
+                    opts: () => { 
+                        var index =_this.cart.indexOf(data);
+                        if(index>-1){
+                            _this.cart.splice(index,1);
+                            _this.selectedNum -= data.quantity;
+                        } 
+                        localStorage.setItem('cart',JSON.stringify(_this.cart));
+                        localStorage.setItem('Quantity',parseInt(_this.selectedNum));
+                        localStorage.setItem('totalPrice',parseInt(this.totalPrice)); 
+
+                    }
+                });
+            },
     },
 
     };

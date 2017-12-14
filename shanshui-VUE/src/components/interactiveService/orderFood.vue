@@ -14,7 +14,7 @@
                   <img  :src="itm.img" alt="">
               </div>
               <div class="col-4">
-                  <h4>{{itm.name}}</h4> 
+                  <h4>{{itm.title}}</h4> 
                   <ul class="s-price">
                     <li class="col-6">RMB {{itm.price}}</li>
                     <li class="col-6" style="margin-top:40%"><button type="button" @click="addToCart(itm)">{{language.common.addToCart}}</button></li>
@@ -47,7 +47,7 @@ export default {
           label: "主食",
           icon: "demo-icons-category1",
           color: "gray",
-          data: [{ name: "米饭", price: "3" }, { name: "面条", price: "4" }]
+          data: [{ id:"1",title: "米饭", price: "3" }, {id:"2", title: "面条", price: "4" }]
         },
         {
           label: "小吃",

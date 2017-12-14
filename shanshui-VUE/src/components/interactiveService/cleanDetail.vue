@@ -2,7 +2,7 @@
     <div class="serviceSubmit">
         <div class="nav_mark"></div>
         <yd-navbar :title="language.interactiveService.clean" fixed>
-            <router-link to="/maintain" slot="left">
+            <router-link to="/interactiveService" slot="left">
                 <span class="back" ></span>
             </router-link>
         </yd-navbar> 

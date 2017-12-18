@@ -12,6 +12,7 @@
     "alloyfinger": "^0.1.7",
     "axios": "^0.15.3",
     "fastclick": "^1.0.6",
+    "jshint": "^2.9.5",
     "vue": "^2.2.2",
     "vue-amap": "^0.4.4",
     "vue-dplayer": "0.0.2",

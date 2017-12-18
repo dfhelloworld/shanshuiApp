@@ -105,6 +105,7 @@ import shopping from '../components/interactiveService/shopping.vue'
 import shoppingDetail from '../components/interactiveService/shoppingDetail.vue'
 import cleanDetail from '../components/interactiveService/cleanDetail.vue'
 import shoppingCart from '../components/interactiveService/shoppingCart.vue'
+import rating from '../components/interactiveService/rating.vue'
 
 
 
@@ -220,5 +221,6 @@ export default new Router({
         { path: '/maintain', name: 'maintain', component:maintain},//维修
         { path: '/cleanDetail', name: 'cleanDetail', component:cleanDetail},//打扫
         { path: '/shoppingCart', name: 'shoppingCart', component:shoppingCart}, //购物车详情
+        { path: '/rating', name: 'rating', component:rating}, //购物车详情
     ]
 })

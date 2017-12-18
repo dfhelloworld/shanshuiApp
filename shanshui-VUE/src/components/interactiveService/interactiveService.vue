@@ -36,7 +36,7 @@
 .community-box {
   width: 100%;
   background: #fff;
-}d
+}
 /* .community-bg{width:100%;height:5rem;background: url("../../assets/images/community-bg.png") center no-repeat;background-size: cover;position: relative;} */
 /* button{position:absolute;left:50%;bottom:0;transform:translate(-50%,50%);border: none;width: 6.5rem;height: 1.2rem;background: url("../../assets/images/community-Group@2x.png")center no-repeat;background-size: cover;margin: 0 auto;} */
 .community-list {
@@ -123,13 +123,13 @@ export default {
       {
         key: "rating",
         title: "",
-        imgSrc: require("../../assets/images/icon-phone.png"),
+        imgSrc: require("../../assets/images/rate.png"),
         linkTo: "/rating"
       },
       {
         key: "otherService",
         title: "",
-        imgSrc: require("../../assets/images/icon-smart.png"),
+        imgSrc: require("../../assets/images/other.png"),
         linkTo: "/interactiveOther"
       }
     ];

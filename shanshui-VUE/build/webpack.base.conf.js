@@ -16,7 +16,7 @@ let webpackConfig = {
     },
   entry: {
     app: './src/main.js'
-  },
+  }, 
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',

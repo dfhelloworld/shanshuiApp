@@ -29,7 +29,14 @@ const state = {
 			internet:'Internet',
 			guestsupply:'Guest Supply',
 			roomservice:'Room Service',
-			shopping:'Shopping'
+			shopping:'Shopping',
+			maintain:'Maintenance',
+			maintainList:'Maintenance List',
+			myOrder:'My Order',
+			rating:'Rating', 
+			hint : 'Select problems and time',
+			butlerList: 'Butler List',
+			feedback: 'We appreciate your feedback',
 		},
 		promotion:{
 			title:'Promotion',
@@ -100,7 +107,8 @@ const state = {
 			num:'Amount',
 			submit:'Submit',
 			remove:'Remove',
-			addToCart: 'Add'
+			addToCart: 'Add',
+			details:'Details'
 		},
         msg:{
             empty_username:'Please enter one user name!',
@@ -113,7 +121,10 @@ const state = {
 			empty_num_buy:'Please enter quantity purchased!',
 			login_err:'Login information is incorrect',
 			buy_info:'Your order has been successfully submitted, will contact you soon',
-            lifeMsg:'The following services are provided by third parties and only support Chinese language. The relevant services and responsibilities will be borne by the third parties. If you have any questions, please contact the customer service of the company.'
+			lifeMsg:'The following services are provided by third parties and only support Chinese language. The relevant services and responsibilities will be borne by the third parties. If you have any questions, please contact the customer service of the company.',
+			input:'Please type here',
+			success:'Submit Success!',
+			
         },
 		login:{
 			sign:'SIGN IN',
@@ -195,7 +206,14 @@ const state = {
 			internet:'宽带',
 			guestsupply:'客用品',
 			roomservice:'送餐',
-			shopping:'购物'
+			shopping:'购物',
+			maintain:'维修',
+			maintainList:'维修列表',
+			myOrder:'我的订单',
+			rating:'评价',
+			hint:'请选择故障和上门时间',
+			butlerList: '管家列表',
+			feedback: '我们期待您的反馈',
 		},
 		promotion:{
 			title:'促销优惠',
@@ -265,7 +283,8 @@ const state = {
 			num:'数量',
 			submit:'提交',
 			remove:'移除',
-			addToCart: '添加'
+			addToCart: '添加',
+			details:'详情',
 
         },
 		msg:{
@@ -279,7 +298,9 @@ const state = {
             empty_num_buy:'请输入购买数量!',
             login_err:'登录信息错误',
             buy_info:'您提交的订单已成功，我们会尽快联系您',
-			lifeMsg:'以下服务由第三方提供并只提供中文支持。相关服务和责任将由该第三方承担。如有问题请咨询该公司客服'
+			lifeMsg:'以下服务由第三方提供并只提供中文支持。相关服务和责任将由该第三方承担。如有问题请咨询该公司客服',
+			input:'请输入信息',
+			success:'提交成功！',
 		},
 		login:{
 			sign:'登录',

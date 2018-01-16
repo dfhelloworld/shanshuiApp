@@ -1,22 +1,27 @@
 <template>
   <div class="maintain">
         <div class="nav_mark"></div>
-        <yd-navbar  title="维修/Maintain" fixed>
+        <yd-navbar  :title="language.interactiveService.maintain" fixed>
             <router-link to="/interactiveService" slot="left">
                <span class="back" ></span>
             </router-link>
         </yd-navbar>
 
  <!-- <section class="community-box"> -->
-     <div class="community-list"> 
-        <yd-cell-group title="维修列表"> 
-             <yd-cell-item arrow v-for="item in list" :href="{ name: 'serviceSubmit', params: { type: item.type, title: item.title }}"  type="link" style="height:50pt"> 
-                <img slot="icon" :src="item.img">
-                <span slot="left">{{item.title}}</span>
+     <div class="community-list" v-if="dataList.length>0"> 
+        <yd-cell-group :title="language.interactiveService.maintainList" > 
+             <yd-cell-item  arrow v-for="item in dataList" :href="{ name: 'serviceSubmit', params: { categoryId:item.id,titelzn:item.title_lang1,titleen:item.title_lang2 }}"  type="link" style="height:50pt"> 
+                <img slot="icon" :src="item.pic">
+                <span v-if="langFlag == 'en'" slot="left">{{item.title_lang2}}</span>
+                <span v-else slot="left">{{item.title_lang1}}</span> 
                 <span slot="right"></span> 
             </yd-cell-item> 
+     
         </yd-cell-group>
            </div>
+                  <div v-else  class="community-list">
+                <p class="no_data">{{language.common.noMoreData}}</p>
+            </div>
  <!-- </section> -->
     </div>
 </template>
@@ -44,51 +49,45 @@
 </style>
 
 <script type="text/babel">
+import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       page1: 1,
+      categoryId: 0,
       page2: 1,
       pageSize: 10,
-      list: [
-        {
-          img: require("../../assets/images/airconditioning.png"),
-          title: "空调",
-          type: 0
-        },
-        {
-          img: require("../../assets/images/plumbing.png"),
-          title: "管道",
-          type: 1
-        },
-        {
-          img: require("../../assets/images/electrical.png"),
-          title: "电器",
-          type: 2
-        },
-        {
-          img: require("../../assets/images/furniture.png"),
-          title: "家具",
-          type: 3
-        },
-        {
-          img: require("../../assets/images/audio.png"),
-          title: "媒体",
-          type: 4
-        },
-        {
-          img: require("../../assets/images/internet.png"),
-          title: "宽带",
-          type: 5
-        }
-      ]
+      dataList: [], 
+       langFlag : localStorage.LANGUAGE,
     };
   },
-
-  methods: {
-    goNext: function() {
-      alert(this.title);
-    }
+  created: function() { 
+    this.categoryId = this.$route.query.categoryId;  
+    let params = {
+      // hotelid: localStorage.HOTELID,
+      hotelid : 6, 
+    };
+    this.$store.dispatch("getServiceList", params).then(res => {
+      let data = res.data; 
+      if (data.code == 0) {  
+        data = data.data.list; 
+        console.log(data);
+        for(var item in data){
+          if (data[item].parentid == this.categoryId){ 
+            this.dataList.push(data[item]);
+            console.log(JSON.stringify(this.dataList));
+          }
+        }
+      } else {
+        this.$dialog.toast({ mes: res.msg, timeout: 1000 });
+      }
+    });
+  }, 
+  computed: {
+    ...mapState({
+      language: state => state.language.language
+    })
   }
 };
 </script>

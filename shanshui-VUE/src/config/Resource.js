@@ -10,7 +10,7 @@ import router from '../router'
 // 配置图片的基本路径
 localStorage.identity  = 'test'
 // axios.defaults.baseURL = 'http://118.190.164.26:8080'
-axios.defaults.baseURL = 'http://47.93.201.72:80'
+axios.defaults.baseURL = 'https://bird.ioliu.cn/v1/?url=https://service.easyiservice.com'
 // axios.defaults.headers.common['authToken'] = localStorage.TOKEN
 
 // 添加请求拦截器
@@ -147,8 +147,10 @@ const Judge = {
 
 //互动服务
 const Service = {
-	ServiceList:'/'
-
+	ServiceList:'/service/getTaskCategoryList',
+	OrderList:'/service/getTaskOrderList',
+	AddTask:'/service/addTaskOrder',
+	TaskList:'/service/getTaskList',
 }
 function apiGet (url, data) {
     var resultObj = getObj(data);
@@ -242,4 +244,8 @@ export default {
     JudgeList:(query) => apiPost(Judge.JudgeList,query),
 	commitJudge:(query) => apiPost(Judge.commitJudge,query),
 	getServiceList:(query) => apiPost(Service.ServiceList,query),
+	getServiceOrderList:(query)=>apiPost(Service.OrderList,query),
+	getTaskList:(query)=>apiPost(Service.TaskList,query),
+	addTask:(query)=>apiPost(Service.AddTask,query)
+
 }

@@ -15,7 +15,8 @@
                             <img :src="data.pic" alt="">
                         </div>
                         <div class="col-6">
-                            <span>{{data.title+" "}}</span>
+                            <span v-if="langFlag=='en'">{{data.title_lang2+" "}}</span>
+                            <span v-else>{{data.title_lang1}}</span>
                             <div class="spinner">
                                 <yd-button style="background-color:lightgrey;width:5%" @click.native="changeMoney(data,-1)">-</yd-button>
                                 <input type="text" disabled value="" v-model="data.quantity">
@@ -67,7 +68,8 @@ export default {
       selectedNum: 0,
       itemQuantity: 1,
       totalPrice: 0,
-      cart: []
+      cart: [],
+      langFlag: localStorage.LANGUAGE
     };
   },
   created: function() {
@@ -88,38 +90,34 @@ export default {
       this.$dialog.confirm({
         title: "提示",
         mes: "确定购买吗？",
-        opts: () => { 
-          alert(JSON.stringify(this.cart));
-
-          //   let params = [];
-          //   for (var index = 0; index < this.cart.length; index++) {
-          //     params[i] = {
-          //       hotelid: localStorage.HOTELID,
-          //       shoppingid: this.cart[i].id,
-          //       token: localStorage.TOKEN,
-          //       count: this.cart[i].quantity
-          //     };
-          //   }
-          //   this.$store.dispatch("getShoppingOrder", params).then(res => {
-          //     if (res.data.code == 0) {
-          //       this.$dialog.toast({
-          //         mes: _this.language.msg.buy_info,
-          //         timeout: 1000
-          //       });
-          //       localStorage.c;
-          //     } else {
-          //       this.$dialog.toast({ mes: res.data.msg, timeout: 1000 });
-          //     }
-          //   });
-          localStorage.Quantity = 0;
-          localStorage.totalPrice = 0;
-          localStorage.cart = [];
+        opts: () => {
+          let validate = 0;
+          for (var item in this.cart) {
+            let params = {
+              token: localStorage.TOKEN,
+              task_id: this.cart[item].id,
+              count: this.cart[item].quantity
+            };
+            this.$store.dispatch("addTask", params).then(res => {
+              let data = res.data;
+              if (data.code == 0) {
+                validate++;
+                if (item == this.cart.length - 1) {
+                  if (validate == this.cart.length) {
+                    this.$dialog.toast({ mes: "已成功提交", timeout: 1000 });
+                    localStorage.Quantity = 0;
+                    localStorage.totalPrice = 0;
+                    localStorage.cart = [];
+                    this.$router.go(-1);
+                  }
+                }
+              } else {
+                this.$dialog.toast({ mes: res.msg, timeout: 1000 });
+              }
+            });
+          }
         }
       });
-    },
-
-    checkOut: function() {
-      // this.$router.push({path:'/shoppingCart'});
     },
 
     goBack: function() {
@@ -149,6 +147,9 @@ export default {
             this.cart.splice(index, 1);
             this.selectedNum -= data.quantity;
             this.totalPrice -= data.price * data.quantity;
+            localStorage.setItem("cart", JSON.stringify(this.cart));
+            localStorage.setItem("Quantity", parseInt(this.selectedNum));
+            localStorage.setItem("totalPrice", parseInt(this.totalPrice));
           }
         }
       });

@@ -2,9 +2,5 @@
     {
         "merged": "/Users/jeff/work/itearoa/shanshui/shanshui-android/PushSDK/build/intermediates/res/merged/androidTest/debug/layout/upush_notification.xml",
         "source": "/Users/jeff/work/itearoa/shanshui/shanshui-android/PushSDK/build/intermediates/bundles/debug/res/layout/upush_notification.xml"
-    },
-    {
-        "merged": "/Users/jeff/work/itearoa/山水/山水-android/PushSDK/build/intermediates/res/merged/androidTest/debug/layout/upush_notification.xml",
-        "source": "/Users/jeff/work/itearoa/山水/山水-android/PushSDK/build/intermediates/bundles/debug/res/layout/upush_notification.xml"
     }
 ]

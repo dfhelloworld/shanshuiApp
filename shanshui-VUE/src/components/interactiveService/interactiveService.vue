@@ -4,28 +4,29 @@
         <yd-navbar :title="language.interactiveService.title" fixed>
             <router-link to="/home" slot="left" >
                 <span class="back"></span>
-            </router-link>
-            <!-- <router-link :to="{path:'/s_home',query:{hotelid:hotelid}}" slot="left" v-if="stateFlag == '2'">
-                <span class="back"></span>
-            </router-link> -->
+            </router-link> 
         </yd-navbar>
          <scroller>
            <section class="community-box">
-              <div class="community-list">
-                  <ul>
-                      <li v-for="item in localshortcutList"   >
-                
-                          <!-- <router-link :to="{name:item.key, params:{type:item.key}}"> -->
-                           <router-link :to="{path:item.linkTo}">
-                             	<!-- <img :src="item.imgSrc"> -->
-                               <img :src="item.imgSrc" alt="">
-                                <!-- <p>{{item.title}}</p> -->
-                                 <p>{{item.key}}</p>
+               <!-- <div  class="community-list"> -->
+              <div  v-if="shortcutList.length>0" class="community-list">
+                  <ul >
+                      <li v-for="item in shortcutList">
+                      <!-- <li v-for="item in localshortcutList"   >  -->
+                           <router-link :to="{path:item.linkTo, query:{categoryId:item.id}}">
+                               <img :src="item.pic" alt=""> 
+                                 <!-- <p v-if="langFlag == 'en'">{{item.key}}</p> -->
+                                 <p >{{item.title_lang1}}</p> 
                           </router-link>
                       </li>
-                  </ul>
-              </div>
-
+                      <li>
+                         <router-link to="/userOrder">
+                         <img src = "../../assets/images/myorder.png">
+                         <p>{{language.interactiveService.myOrder}}</p> 
+                          </router-link> 
+                      </li>
+                  </ul> 
+              </div>  
           </section>
       </scroller>
 
@@ -36,9 +37,7 @@
 .community-box {
   width: 100%;
   background: #fff;
-}
-/* .community-bg{width:100%;height:5rem;background: url("../../assets/images/community-bg.png") center no-repeat;background-size: cover;position: relative;} */
-/* button{position:absolute;left:50%;bottom:0;transform:translate(-50%,50%);border: none;width: 6.5rem;height: 1.2rem;background: url("../../assets/images/community-Group@2x.png")center no-repeat;background-size: cover;margin: 0 auto;} */
+} 
 .community-list {
   width: 100%;
   padding: 2rem 0.3rem 0 0.3rem;
@@ -88,6 +87,8 @@ export default {
       shortcutList: [], //按钮组
       serviceList: {},
       localshortcutList:[],
+      langFlag : localStorage.LANGUAGE,
+      subList :[],
     };
   },
   created: function() {
@@ -98,70 +99,76 @@ export default {
     this.localshortcutList = [
       {
         key: "orderFood",
-        title: "",
-        imgSrc: require("../../assets/images/roomservice.png"),
+        title: "Room Service",
+        pic: require("../../assets/images/food.png"),
         linkTo: "/orderFood"
       },
       {
         key: "shopping",
-        title: "",
-        imgSrc: require("../../assets/images/shopping1.png"),
+        title: "Guest Supply",
+        pic: require("../../assets/images/shopping.png"),
         linkTo: "/shopping"
       },
       {
         key: "maintain",
-        title: "",
-        imgSrc: require("../../assets/images/plumbing.png"),
+        title: "Maintenance",
+        pic: require("../../assets/images/maintain.png"),
         linkTo: "/maintain"
       },
       {
         key: "clean",
-        title: "",
-        imgSrc: require("../../assets/images/clean.jpeg"),
+        title: "Cleaning",
+        pic: require("../../assets/images/clean.png"),
         linkTo: "/cleanDetail"
       },
       {
         key: "rating",
-        title: "",
-        imgSrc: require("../../assets/images/rate.png"),
+        title: "Survey",
+        pic: require("../../assets/images/rating.png"),
         linkTo: "/rating"
-      },
-      {
-        key: "otherService",
-        title: "",
-        imgSrc: require("../../assets/images/other.png"),
-        linkTo: "/interactiveOther"
       }
     ];
 
     //获取物业详情
     let params = {
-      hotelid: localStorage.HOTELID,
-      lang: localStorage.LANGUAGE
-    };
-    // this.$store.dispatch("getServiceList", params).then(res => {
-    //   if (res.code == 0) {
-    //     //全部数据
-    //     this.serviceList = this.home.data;
-    //     console.log(this.hotelDetail);
-    //     //重组图标数据
-    //     for (var item in this.home.data.shortcutList) {
-    //       for (var i in this.localshortcutList) {
-    //         if (
-    //           this.home.data.shortcutList[item].key ==
-    //           this.localshortcutList[i].key
-    //         ) {
-    //           this.localshortcutList[i].title = this.home.data.shortcutList[
-    //             item
-    //           ].title;
-    //           this.shortcutList.unshift(this.localshortcutList[i]);
-    //         }
-    //       }
-    //     }
-    //   } else {
-    //     this.$dialog.toast({ mes: res.msg, timeout: 1000 });
-    //   }
-    // });
+      hotelid: 6,
+      // lang: localStorage.LANGUAGE
+    }; 
+    this.$store.dispatch("getServiceList", params).then(res => {
+      let dataList = res.data;  
+      if (dataList.code == 0) {
+        //全部数据    
+        this.serviceList = dataList.data.list; 
+        console.log(this.serviceList.length);
+        //重组数据 
+        for (var item in this.serviceList) {
+          for (var i in this.localshortcutList) { 
+            //通过英文title匹配显示模块
+            if (
+              this.serviceList[item].title_lang2.replace(/\s+/g,"").toLowerCase() ==
+              this.localshortcutList[i].title.replace(/\s+/g,"").toLowerCase()
+            ) { 
+              this.serviceList[item].linkTo = this.localshortcutList[i].linkTo;
+             this.serviceList[item].title_lang1 = (this.langFlag=="en")?this.serviceList[item].title_lang2:this.serviceList[item].title_lang1; 
+              this.shortcutList.push(this.serviceList[item]); 
+            }
+          }
+        } 
+        // for(let i in this.shortcutList){ 
+        //   for (let item in this.serviceList){
+        //     if(this.serviceList[item].parentid == this.shortcutList[i].id){  
+        //       tmpList.push(this.serviceList[item]);
+        //     }
+        //   } 
+        // } 
+
+        //   alert(JSON.stringify(this.subList));
+        
+
+      } else {
+        this.$dialog.toast({ mes: res.msg, timeout: 1000 });
+      }
+    });
   },
   mounted: function() {
     //一级页面falg

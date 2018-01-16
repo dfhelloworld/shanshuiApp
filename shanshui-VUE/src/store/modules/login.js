@@ -17,15 +17,15 @@ const actions = {
 			})
 		})
 	},
-	// loginStaff: function ({commit},data) {
-	// 	return new Promise((resolve, reject) => {
-	// 		API.loginStaff(data).then((res) => {
-	// 			resolve(res.data)
-	// 		}, (error) => {
-	// 			reject(error)
-	// 		})
-	// 	})
-	// },
+	loginStaff: function ({commit},data) {
+		return new Promise((resolve, reject) => {
+			API.loginStaff(data).then((res) => {
+				resolve(res.data)
+			}, (error) => {
+				reject(error)
+			})
+		})
+	},
 	getUsers:function ({commit},data) {
 		return new Promise((resolve, reject) => {
 			API.getUsers(data).then((res) => {

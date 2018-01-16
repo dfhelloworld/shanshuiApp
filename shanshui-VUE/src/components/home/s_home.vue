@@ -155,7 +155,6 @@
                                     <img slot="icon" src="../../assets/images/icon-taxi.png" v-else-if="item.introduct == 'Taxi' || item.introduct == '出租车'">
                                     <img slot="icon" src="../../assets/images/icon-bus.png" v-else-if="item.introduct == 'Public bus' || item.introduct == '公共交通'">
                                     <img slot="icon" src="../../assets/images/icon-tbus.png" v-else-if="item.introduct == 'Subway' || item.introduct == '地铁'">
-
                                     <span slot="left">{{item.introduct}}</span>
                                 </yd-cell-item>
                             </yd-cell-group>
@@ -209,7 +208,7 @@ export default {
       sHeightPx: "400px",
       weatherSrc: "",
       hotelid: "",
-      pageFlag: false
+      pageFlag: false,
     };
   },
   created: function() {
@@ -708,7 +707,11 @@ export default {
       openBooking(url);
     },
     goService: function() {
+      if (localStorage.TOKEN) {
       this.$router.push("/interactiveService");
+      }else{
+        this.$router.replace("/loginforguest");
+      }
     }
   },
   components: {

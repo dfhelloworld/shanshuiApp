@@ -203,7 +203,6 @@ export default {
     };
   },
   created: function() {
-	  
     // if (localStorage.baseHotelId != localStorage.HOTELID) {
     //     localStorage.HOTELID = localStorage.baseHotelId
     // }
@@ -313,7 +312,7 @@ export default {
         method: () => {
           this.hideAction("zh");
         }
-	  }
+      }
     ];
     this.facList = [
       {
@@ -433,7 +432,7 @@ export default {
       hotelid: 3,
       lang: localStorage.LANGUAGE
     };
-    this.$store.dispatch("getHotelDetail", params2).then(res => { 
+    this.$store.dispatch("getHotelDetail", params2).then(res => {
       this.details = this.hotelDetail;
       this.lat = this.hotelDetail.lat;
       this.lng = this.hotelDetail.lng;
@@ -442,7 +441,7 @@ export default {
 
       //重组图标数据
       for (var item in this.hotelDetail.facilitiesList) {
-    for (var i in this.facList) {
+        for (var i in this.facList) {
           if (
             this.hotelDetail.facilitiesList[item].icon == this.facList[i].icon
           ) {
@@ -553,7 +552,7 @@ export default {
     },
     //点击页面，收起抽屉效果
     hideSlide: function() {
-     //如果是菜单展开，收起菜单
+      //如果是菜单展开，收起菜单
       if (this.menuSlide) {
         $(".index").css({
           left: 0
@@ -619,9 +618,9 @@ export default {
       };
       this.$store.dispatch("getHotelDetail", params2);
 
-    //   if (this.tabLanShow2 == true) {
-    //     this.$store.dispatch("changeLanguage2");
-    //   }
+      //   if (this.tabLanShow2 == true) {
+      //     this.$store.dispatch("changeLanguage2");
+      //   }
     },
     //地图导航
     goLocation: function() {
@@ -690,7 +689,11 @@ export default {
       openBooking(url);
     },
     goService: function() {
-      this.$router.push("/interactiveService");
+      if (localStorage.TOKEN) {
+        this.$router.push("/interactiveService");
+      } else {
+        _this.$router.replace("/loginforguest");
+      }
     }
   },
   components: {

@@ -8,9 +8,8 @@
 		  <!-- <li @click="toPDF">{{language.menu.info}}<i></i></li> -->
           <li @click="tabLanguage">{{language.menu.language}}<i></i></li>
           <li @click="help">{{language.menu.help}} <i></i></li>
-          <li @click="aboutUs">{{language.menu.aboutus}}<i></i></li>
-          <!-- 关闭员工登录功能，后期开发 -->
-		  <!-- <li @click="emSign">{{language.menu.emSign}} <i></i></li> -->
+          <li @click="aboutUs">{{language.menu.aboutus}}<i></i></li> 
+		  <li @click="emSign">{{language.menu.emSign}} <i></i></li>
       </ul>
   </div>
 </template>
@@ -63,11 +62,10 @@
 		    },
             help:function () {
                 this.$router.push({path:'/help',query:{menuFlag : this.menuFlag}})
+            }, 
+		 	emSign:function () {
+                this.$router.push('loginForEmployee');
             },
-		 	//关闭员工登录功能，后期开发
-		 	// emSign:function () {
-            //     this.$router.push('loginForEmployee');
-            // },
             aboutUs: function () {
                 this.$router.push({path:'/aboutUs',query:{menuFlag : this.menuFlag}})
 			},

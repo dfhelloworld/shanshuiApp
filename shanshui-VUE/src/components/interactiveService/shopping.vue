@@ -7,17 +7,17 @@
                 <yd-navbar-back-icon></yd-navbar-back-icon>
             </router-link>
         </yd-navbar>
-    <!-- <h1>模块开发中,敬请期待。</h1> -->
     <section class="promotiom_list top_nav resetPro">
       <scroller :on-infinite="infinite">
         <ul class="type-buy">
           <li v-for="data in dataList" >
               <div class="col-4">
-                  <img  :src="data.pic"  alt="" @click="goDetail(data.id)">
+                  <img  :src="data.pic"  alt="" >
               </div>
               <div class="col-6">
-                  <h4>{{data.title}}</h4>
-                  <p>{{data.introduct}}</p>
+                  <h4  v-if="langFlag == 'en'">{{data.title_lang2}}</h4>
+                   <h4  v-else>{{data.title_lang1}}</h4>
+                  <!-- <p>{{data.introduct}}</p> -->
                   <ul class="s-price">
                     <li class="col-5">RMB {{data.price}}</li>
                     <li class="col-5"><button type="button" @click="addToCart(data)">{{language.community.buy}}</button></li>
@@ -51,7 +51,8 @@ export default {
       selectedNum: 0,
       itemQuantity: 1,
       totalPrice: 0,
-      cart: []
+      cart: [],
+      langFlag: localStorage.LANGUAGE
     };
   },
   created: function() {
@@ -64,17 +65,29 @@ export default {
   },
   methods: {
     getData: function() {
-      let _this = this;
+      // let _this = this;
+      // let params = {
+      //   hotelid: localStorage.HOTELID,
+      //   lang: localStorage.LANGUAGE,
+      //   limit: 4,
+      //   page: _this.nextPage
+      // };
       let params = {
-        hotelid: localStorage.HOTELID,
-        lang: localStorage.LANGUAGE,
-        limit: 4,
-        page: _this.nextPage
+        category_id: this.$route.query.categoryId,
+        status: 1,
+        hotelid: 6
+        //  hotelid: localStorage.HOTELID,
       };
-      this.$store.dispatch("getShoppingList", params).then(function(res) {
-        var arrList = res.data.data.list;
-        _this.dataList = _this.dataList.concat(arrList);
-        _this.nextPage = res.data.data.nextPage;
+      this.$store.dispatch("getTaskList", params).then(res => {
+        let data = res.data;
+        if (data.code == 0) {
+          data = data.data.list;
+          for (var item in data) {
+            this.dataList.push(data[item]);
+          }
+        } else {
+          this.$dialog.toast({ mes: res.msg, timeout: 1000 });
+        }
       });
     },
     infinite: function(done) {
@@ -87,18 +100,18 @@ export default {
         _this.noData = true;
       }
     },
-    goDetail: function(id) {
-      let data = {};
-      for (var key in this.dataList) {
-        if (this.dataList[key].id == id) {
-          data = this.dataList[key];
-          break;
-        }
-      }
-      this.$router.push({ path: "/buy", query: { info: data } });
-    },
+    // goDetail: function(id) {
+    //   let data = {};
+    //   for (var key in this.dataList) {
+    //     if (this.dataList[key].id == id) {
+    //       data = this.dataList[key];
+    //       break;
+    //     }
+    //   }
+    //   this.$router.push({ path: "/buy", query: { info: data } });
+    // },
     saveCart: function() {
-      localStorage.setItem("cart", JSON.stringify(this.cart));
+      localStorage.setItem("cart", JSON.stringify(this.cart)); 
       localStorage.setItem("Quantity", parseInt(this.selectedNum));
       localStorage.setItem("totalPrice", parseInt(this.totalPrice));
     },

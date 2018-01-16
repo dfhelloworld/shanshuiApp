@@ -13,6 +13,7 @@ import translate from './modules/translate'
 import promotion from './modules/promotiom'
 import raiders from './modules/raiders'
 import community from './modules/community'
+import service from './modules/service'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -25,7 +26,8 @@ export default new Vuex.Store({
 		'translate':translate,
 		'promotion':promotion,
 		'raiders': raiders,
-		'community': community
+		'community': community,
+		'service': service,
 
 	}
 })

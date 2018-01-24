@@ -19,13 +19,13 @@
                               <p>{{language.community.opinionSurvey}}</p>
                           </router-link>
                       </li>
-                      <li>
+                      <!-- <li>
                           <router-link to="/shopping">
                               <img src="../../assets/images/shopping.png" alt="">
                               <p>{{language.community.shopping}}</p>
                           </router-link>
-                      </li>
-                      <li style="border-bottom: none">
+                      </li> -->
+                      <li>
                           <router-link to="/ascottLife">
                               <img src="../../assets/images/ascott-life.png" alt="">
                               <p>{{language.community.ascottLife}}</p>
@@ -65,7 +65,7 @@
 <style>
 .community-box{width:100%;background: #fff;}
 .community-bg{width:100%;height:5rem;background: url("../../assets/images/community-bg.png") center no-repeat;background-size: cover;position: relative;}
-.community-bg button{position:absolute;left:50%;bottom:0;transform:translate(-50%,50%);border: none;width: 6.5rem;height: 1.2rem;background: url("../../assets/images/community-Group@2x.png")center no-repeat;background-size: cover;margin: 0 auto;}
+.community-bg button{position:absolute;left:50%;bottom:30px;transform:translate(-50%,50%);border: none;width: 6.5rem;height: 1.2rem;background: url("../../assets/images/community-Group@2x.png")center no-repeat;background-size: cover;margin: 0 auto;}
 .community-list{width:100%;padding: 1rem 0.3rem 0 .3rem;background: #fff;box-sizing: border-box;padding-bottom: 0.7rem;}
 .community-list ul{overflow: hidden}
 .community-list li{width:33.33%;padding-top:0.6rem;box-sizing: border-box;float:left;cursor: pointer;border-bottom: 1px solid #f4f4f4;border-right:1px solid #f4f4f4;}

@@ -34,7 +34,8 @@ public class C {
         //public static final String home_url = "file:///android_asset/dist/index.html";
         public static final String do_main = "https://service.easyiservice.com/";
         public static final String time_url = do_main + "system/getTime";
-        public static final String secret_key = "CtUyV$8MGoK8u5L*P0Q50T/b8S9iclS*LQqo";
+        // public static final String secret_key = "CtUyV$8MGoK8u5L*P0Q50T/b8S9iclS*LQqo";
+         public static final String secret_key = "sc22qnrae681fuyrxmqta3ynzufv0dx1";
     }
 
     public static final class key {

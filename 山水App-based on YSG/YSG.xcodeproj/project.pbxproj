@@ -576,7 +576,7 @@
 					1890B6A61EF91D2500FBF864 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = RPQZKE2UNE;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -588,7 +588,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1890B6A21EF91D2500FBF864 /* Build configuration list for PBXProject "EasyiService-shanshui" */;
+			buildConfigurationList = 1890B6A21EF91D2500FBF864 /* Build configuration list for PBXProject "YSG" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -816,8 +816,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = YSG/YSG.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = RPQZKE2UNE;
 				INFOPLIST_FILE = YSG/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -828,8 +828,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.itearoa.shanshui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "22365ade-102d-411f-b78f-12fdd5c3f843";
+				PROVISIONING_PROFILE_SPECIFIER = "Ad-Hoc-Shanshui-Push-Profile";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -840,8 +840,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = YSG/YSG.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = RPQZKE2UNE;
 				INFOPLIST_FILE = YSG/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -852,8 +852,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.itearoa.shanshui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "22365ade-102d-411f-b78f-12fdd5c3f843";
+				PROVISIONING_PROFILE_SPECIFIER = "Ad-Hoc-Shanshui-Push-Profile";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -861,7 +861,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1890B6A21EF91D2500FBF864 /* Build configuration list for PBXProject "EasyiService-shanshui" */ = {
+		1890B6A21EF91D2500FBF864 /* Build configuration list for PBXProject "YSG" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1890B6BC1EF91D2600FBF864 /* Debug */,

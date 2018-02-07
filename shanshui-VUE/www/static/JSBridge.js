@@ -89,9 +89,8 @@ if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
 
 //05----->方法 *  安卓打开pdf方法
 function openPdf(url) {
-	// JSInterface.openPDF(url)
-	window.open(url, '_blank', 'location=yes')
-	// window.open(url, '_system', 'location=yes')
+	JSInterface.openPDF(url)
+	// window.open(url, '_blank', 'location=yes') 
 }
 
 //06----->方法 *  安卓打开视频的方法
@@ -100,14 +99,14 @@ function openVideo(url) {
 }
 //07----->方法 *  安卓打开原生页面的方法
 function openUrl(url,title) {
-	// JSInterface.openUrl(url,title)
-	window.open(url, '_blank', 'location=yes')
+	JSInterface.openUrl(url,title)
+	// window.open(url, '_blank', 'location=yes')
 }
 
 //08----->方法 *  iOS打开原生页面的方法
 function openFile(url) {
-	// window.webkit.messageHandlers.openFile.postMessage(url)
-	window.open(url, '_blank', 'location=yes')
+	window.webkit.messageHandlers.openFile.postMessage(url)
+	// window.open(url, '_blank', 'location=yes')
 }
 
 //09----->方法 *  安卓获取消息列表的方法
@@ -145,14 +144,14 @@ function setXmlData(data) {
 
 //13----->方法 *  安卓打开外部浏览器
 function getSystemBrowser(url) {
-	// JSInterface.getSystemBrowser(url)
-	window.open(url, '_system', 'location=yes')
+	JSInterface.getSystemBrowser(url)
+	// window.open(url, '_system', 'location=yes')
 }
 
 //14----->方法 *  iOS打开外部浏览器
 function openSafariUrl(url) {
-	// window.webkit.messageHandlers.openSafariUrl.postMessage(url);
-	window.open(url, '_system', 'location=yes')
+	window.webkit.messageHandlers.openSafariUrl.postMessage(url);
+	// window.open(url, '_system', 'location=yes')
 }
 
 

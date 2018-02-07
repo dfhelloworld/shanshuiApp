@@ -344,6 +344,26 @@ export default {
       {
         icon: "Sauna Room",
         imgSrc: require("../../assets/images/icon-sauan.png")
+      },
+      {
+        icon: "AtriumTea",
+        imgSrc: require("../../assets/images/dining room@2x.png")
+      },
+      {
+        icon: "MeetingRoom",
+      imgSrc: require("../../assets/images/icon-laug.png")
+      },
+      {
+        icon: "Yoga studio",
+        imgSrc: require("../../assets/images/icon-sauan.png")
+      },
+      {
+        icon: "ChildrenBook",
+       imgSrc: require("../../assets/images/icon-child.png")
+      },
+      {
+        icon: "BookRoom",
+       imgSrc: require("../../assets/images/icon-reading.png")
       }
     ];
 
@@ -435,9 +455,8 @@ export default {
     this.$store.dispatch("getHotelDetail", params2).then(res => {
       this.details = this.hotelDetail;
       this.lat = this.hotelDetail.lat;
-      this.lng = this.hotelDetail.lng;
-
-      localStorage.bookUrl = this.hotelDetail.bookurl;
+      this.lng = this.hotelDetail.lng; 
+      localStorage.bookUrl = this.hotelDetail.bookurl; 
 
       //重组图标数据
       for (var item in this.hotelDetail.facilitiesList) {
@@ -456,7 +475,7 @@ export default {
         }
       }
       //初始化swiper
-      $(document).ready(function() {
+      $(document).ready(function() { 
         setTimeout(function() {
           var swiper = new Swiper(".equipment .swiper-container", {
             pagination: ".swiper-pagination",

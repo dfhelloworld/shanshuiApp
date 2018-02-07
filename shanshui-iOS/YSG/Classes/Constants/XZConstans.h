@@ -38,7 +38,9 @@
 #define kScreenWidth  [UIScreen mainScreen].bounds.size.width
 
 #define KSecretKey             @"wp7nojtug6wcjrgt6pntjucxsknci8zc"
-#define kApiHomeURL           @"http://webview.easyiservice.com:8800/"
+//#define kApiHomeURL           @"http://webview.easyiservice.com:8800/"
+#define kApiHomeURL           @"http://localhost:8080/"
+
 //#define kApiHomeURL           @"http://192.168.0.59:8080/"
 #define kApiDomainURL         @"https://service.easyiservice.com/"
 

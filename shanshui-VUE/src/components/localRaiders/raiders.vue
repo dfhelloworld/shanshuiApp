@@ -66,7 +66,8 @@ export default {
     //获取tab 列表
     let params = {
       hotelid: localStorage.HOTELID,
-      lang: localStorage.LANGUAGE
+      lang: localStorage.LANGUAGE,
+      
     };
     this.$store.dispatch("getPoiTypeList", params).then(function(res) {
       _this.typeList = res.data.data.list;
@@ -114,10 +115,12 @@ export default {
           typeid: id,
           lang: localStorage.LANGUAGE,
           limit: 5,
-          page: _this.nextPage
-        };
+          page: _this.nextPage, 
+          status:1
+        }; 
         _this.$store.dispatch("getPoiList", params).then(res => {
           let list = res.data.data.list;
+          console.log(JSON.stringify(list));
           _this.nextPage = res.data.data.nextPage;
           //获取距离,重组数据
           var dataArr = [];

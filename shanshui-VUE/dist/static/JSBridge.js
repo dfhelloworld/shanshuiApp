@@ -100,8 +100,8 @@ function openUrl(url,title) {
 
 //08----->方法 *  iOS打开原生页面的方法
 function openFile(url) {
-	// window.webkit.messageHandlers.openFile.postMessage(url)
-	cordova.InAppBrowser.open(url, '_blank', 'location=yes');
+	window.webkit.messageHandlers.openFile.postMessage(url)
+	// cordova.InAppBrowser.open(url, '_blank', 'location=yes');
 }
 
 //09----->方法 *  安卓获取消息列表的方法
@@ -144,8 +144,8 @@ function getSystemBrowser(url) {
 
 //14----->方法 *  iOS打开外部浏览器
 function openSafariUrl(url) {
-	// window.webkit.messageHandlers.openSafariUrl.postMessage(url);
-	cordova.InAppBrowser.open(url, '_system', 'location=yes');
+	window.webkit.messageHandlers.openSafariUrl.postMessage(url);
+	// cordova.InAppBrowser.open(url, '_system', 'location=yes');
 }
 
 
@@ -163,11 +163,11 @@ localStorage.groupid = 2
  */
 function openBooking(url) {
 	if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-		// window.webkit.messageHandlers.openSafariUrl.postMessage(url);
-		cordova.InAppBrowser.open(url, '_system', 'location=yes');
+		window.webkit.messageHandlers.openSafariUrl.postMessage(url);
+		// cordova.InAppBrowser.open(url, '_system', 'location=yes');
 	} else {
-		// JSInterface.getSystemBrowser(url)
-		cordova.InAppBrowser.open(url, '_system', 'location=yes');
+		JSInterface.getSystemBrowser(url)
+		// cordova.InAppBrowser.open(url, '_system', 'location=yes');
 	}
 }
 

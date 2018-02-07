@@ -80,6 +80,7 @@
 		},
 		methods: {
 			toPDF:function () {
+				window.open(this.info.pdf, '_blank', 'location=yes') 
 				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
 					openFile(this.info.pdf)
 				}else{

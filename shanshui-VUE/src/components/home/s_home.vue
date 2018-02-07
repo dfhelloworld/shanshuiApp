@@ -360,6 +360,26 @@ export default {
       {
         icon: "Sauna Room",
         imgSrc: require("../../assets/images/icon-sauan.png")
+      },
+           {
+        icon: "AtriumTea",
+        imgSrc: require("../../assets/images/dining room@2x.png")
+      },
+      {
+        icon: "MeetingRoom",
+      imgSrc: require("../../assets/images/icon-laug.png")
+      },
+      {
+        icon: "Yoga studio",
+        imgSrc: require("../../assets/images/icon-sauan.png")
+      },
+      {
+        icon: "ChildrenBook",
+       imgSrc: require("../../assets/images/icon-child.png")
+      },
+      {
+        icon: "BookRoom",
+       imgSrc: require("../../assets/images/icon-reading.png")
       }
     ];
 
@@ -406,13 +426,16 @@ export default {
         this.lat = this.home.data.lat;
         this.lng = this.home.data.lng;
 
+ 
         //整理按钮结果集
+
         for (var item in this.home.data.shortcutList) {
           for (var i in this.localshortcutList) {
             if (
+
               this.home.data.shortcutList[item].key ==
               this.localshortcutList[i].key
-            ) {
+            ) { 
               this.localshortcutList[i].title = this.home.data.shortcutList[
                 item
               ].title;
@@ -473,7 +496,7 @@ export default {
         }
       }
       //初始化swiper
-      $(document).ready(function() {
+      $(document).ready(function() { 
         setTimeout(function() {
           var swiper = new Swiper(".equipment .swiper-container", {
             pagination: ".swiper-pagination",
